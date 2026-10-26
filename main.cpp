@@ -32,6 +32,19 @@ public:
     }
 };
 
+class Inventory {
+private:
+    vector<Book*> books;
+
+public:
+    void addBook(Book* bookPtr) {
+        if (bookPtr != nullptr) {
+            books.push_back(bookPtr);
+            cout << "Book added successfully.\n";
+        }
+    }
+};
+
 int main() {
     return 0;
 }
