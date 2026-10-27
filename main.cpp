@@ -43,6 +43,38 @@ public:
             cout << "Book added successfully.\n";
         }
     }
+    void displayAll() const {
+        if (books.empty()) {
+            cout << "The inventory is empty.\n";
+            return;
+        }
+
+        for (size_t i = 0; i < books.size(); i++) {
+            cout << "\nBook #" << i + 1 << endl;
+            books[i]->displayInfo();
+        }
+    }
+
+    void removeBook(int index) {
+        if (index < 1 || index > static_cast<int>(books.size())) {
+            cout << "Invalid book number.\n";
+            return;
+        }
+
+        delete books[index - 1];
+        books.erase(books.begin() + index - 1);
+
+        cout << "Book removed successfully.\n";
+    }
+
+    ~Inventory() {
+        for (Book* bookPtr : books) {
+            delete bookPtr;
+        }
+    }
+
+    Inventory(const Inventory&) = delete;
+    Inventory& operator=(const Inventory&) = delete;
 };
 
 int main() {
