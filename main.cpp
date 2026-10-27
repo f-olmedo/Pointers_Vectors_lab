@@ -5,7 +5,6 @@ Project: Pointers
 Purpose: Create a reliable book inventory system by implementing the Inventory class
 which will be fully responsible for the life-cycle of all Book objects it contains
 */
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -37,12 +36,15 @@ private:
     vector<Book*> books;
 
 public:
+    Inventory() = default;
+
     void addBook(Book* bookPtr) {
         if (bookPtr != nullptr) {
             books.push_back(bookPtr);
             cout << "Book added successfully.\n";
         }
     }
+
     void displayAll() const {
         if (books.empty()) {
             cout << "The inventory is empty.\n";
@@ -71,6 +73,8 @@ public:
         for (Book* bookPtr : books) {
             delete bookPtr;
         }
+
+        cout << "Inventory destroyed. Remaining books deleted.\n";
     }
 
     Inventory(const Inventory&) = delete;
@@ -159,5 +163,6 @@ int main() {
         }
 
     } while (choice != 4);
+
     return 0;
 }
