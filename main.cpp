@@ -78,5 +78,86 @@ public:
 };
 
 int main() {
+    Inventory store;
+    int choice = 0;
+
+    do {
+        cout << "\n===== Book Inventory =====\n";
+        cout << "1. Add New Book\n";
+        cout << "2. Display All Books\n";
+        cout << "3. Remove Book\n";
+        cout << "4. Quit\n";
+        cout << "Enter your choice: ";
+
+        if (!(cin >> choice)) {
+            cout << "Please enter a valid number.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        switch (choice) {
+        case 1: {
+            string title;
+            string author;
+            double price;
+
+            cout << "Enter book title: ";
+            getline(cin, title);
+
+            cout << "Enter author: ";
+            getline(cin, author);
+
+            cout << "Enter price: ";
+
+            if (!(cin >> price) || price < 0) {
+                cout << "Invalid price. Enter a nonnegative number.\n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+            }
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            Book* newBook = new Book(title, author, price);
+            store.addBook(newBook);
+            break;
+        }
+
+        case 2:
+            store.displayAll();
+            break;
+
+        case 3: {
+            int bookNumber;
+
+            store.displayAll();
+
+
+            cout << "Enter the book number to remove: ";
+
+            if (!(cin >> bookNumber)) {
+                cout << "Please enter a valid number.\n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+            }
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            store.removeBook(bookNumber);
+            break;
+        }
+
+        case 4:
+            cout << "Exiting inventory...\n";
+            break;
+
+        default:
+            cout << "Invalid choice. Choose 1 through 4.\n";
+        }
+
+    } while (choice != 4);
     return 0;
 }
